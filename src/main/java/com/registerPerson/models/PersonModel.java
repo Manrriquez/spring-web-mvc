@@ -16,6 +16,16 @@ public class PersonModel implements Serializable {
 
     private String lastName;
 
+    private int years;
+
+    public int getYears() {
+        return years;
+    }
+
+    public void setYears(int years) {
+        this.years = years;
+    }
+
     public Long getId() {
         return id;
     }
