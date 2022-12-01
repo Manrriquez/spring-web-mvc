@@ -16,23 +16,28 @@
                     <div class="col-12 d-flex justify-content-center align-items-center">
                        <div class="items-centered">
                            <div class="my-5">
-                               <form action="savePerson">
+                               <form action="savePerson" method="post" th:object="${personobj}">
+                                   <div class="mb-3">
+                                       <label for="id" class="form-label" readonly>ID</label>
+                                       <input type="text" class="form-control"
+                                              id="id" name="id" th:field="*{id}">
+                                   </div>
                                    <div class="mb-3">
                                        <label for="firstName" class="form-label">Nome</label>
                                        <input type="text" class="form-control"
-                                              id="firstName" name="firstName">
+                                              id="firstName" name="firstName" th:field="*{firstName}">
                                    </div>
 
                                    <div class="mb-3">
                                        <label for="lastName" class="form-label">Sobrenome</label>
                                        <input type="text" class="form-control"
-                                              id="lastName" name="lastName">
+                                              id="lastName" name="lastName" th:field="*{lastName}">
                                    </div>
 
                                    <div class="mb-3">
                                        <label for="years" class="form-label">Idade</label>
                                        <input type="number" class="form-control"
-                                              id="years" name="years">
+                                              id="years" name="years" th:field="*{years}">
                                    </div>
 
                                    <button type="submit" value="Save" class="btn btn-primary w-100">enviar</button>
@@ -57,6 +62,10 @@
                                        <td th:text = "${person.firstName}"></td>
                                        <td th:text = "${person.lastName}"></td>
                                        <td th:text = "${person.years}"></td>
+                                       <td>
+                                           <a th:href="@{/editPerson/{idPerson}(idPerson=${person.id})}"
+                                              class="btn btn-info">Editar</a>
+                                       </td>
                                    </tr>
                                    </tbody>
                                </table>
