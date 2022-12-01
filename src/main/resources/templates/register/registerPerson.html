@@ -16,7 +16,7 @@
                     <div class="col-12 d-flex justify-content-center align-items-center">
                        <div class="items-centered">
                            <div class="my-5">
-                               <form action="savePerson" method="post" th:object="${personobj}">
+                               <form th:action="@{'/savePerson}" method="post" th:object="${personobj}">
                                    <div class="mb-3">
                                        <label for="id" class="form-label" readonly>ID</label>
                                        <input type="text" class="form-control"
@@ -43,6 +43,21 @@
                                    <button type="submit" value="Save" class="btn btn-primary w-100">enviar</button>
                                </form>
                            </div>
+
+                           <div class="my-5">
+                               <form th:action="@{'/searchPerson}" method="post">
+                                   <div class="mb-3">
+                                       <label for="searchName" class="form-label">Pesquisar Nome</label>
+                                       <input type="text" class="form-control"
+                                              id="searchName" name="searchName">
+                                   </div>
+
+
+                                   <button type="submit" value="Search"
+                                           class="btn btn-info w-100">Buscar</button>
+                               </form>
+
+                           </div>
                            <div class="my-3">
                                <a href="/listPerson">Listar Pessoas</a>
                            </div>
@@ -57,7 +72,7 @@
                                    </tr>
                                    </thead>
                                    <tbody>
-                                   <tr th:each = "person : ${persons}">
+                                   <tr th:each = "person: ${persons}">
                                        <th th:text = "${person.id}" scope="row"></th>
                                        <td th:text = "${person.firstName}"></td>
                                        <td th:text = "${person.lastName}"></td>

@@ -46,13 +46,23 @@ public class PersonController {
         andView.addObject("personobj", new PersonModel());
         return andView;
     }
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "editPerson/{idPerson}")
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/editPerson/{idPerson}")
     public ModelAndView editPerson(@PathVariable("idPerson") Long idPerson) {
         Optional<PersonModel> person = personRepository.findById(idPerson);
         ModelAndView modelAndView = new ModelAndView("register/registerPerson");
         modelAndView.addObject("personobj", person.get());
 
         return  modelAndView;
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "**/searchPerson")
+    public ModelAndView searchName(@RequestParam("searchName") String searchName) {
+        ModelAndView modelAndView = new ModelAndView("register/registerPerson");
+        modelAndView.addObject("persons", personRepository.PersonNameSearch(searchName));
+        modelAndView.addObject("personobj", new PersonModel());
+
+        return modelAndView;
     }
 
 
