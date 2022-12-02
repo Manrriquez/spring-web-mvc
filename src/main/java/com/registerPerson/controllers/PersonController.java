@@ -21,7 +21,10 @@ public class PersonController {
     @RequestMapping(value = "/registerPerson", method = RequestMethod.GET)
     public ModelAndView init() {
         ModelAndView modelAndView = new ModelAndView("register/registerPerson");
+        Iterable<PersonModel> personsIt = personRepository.findAll();
+        modelAndView.addObject("persons", personsIt);
         modelAndView.addObject("personobj", new PersonModel());
+
         return modelAndView;
     }
 
@@ -55,6 +58,16 @@ public class PersonController {
         return  modelAndView;
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/deletePerson/{idPerson}")
+    public ModelAndView deletePerson(@PathVariable("idPerson") Long idPerson) {
+
+        personRepository.deleteById(idPerson);
+        ModelAndView modelAndView = new ModelAndView("register/registerPerson");
+        modelAndView.addObject("persons", personRepository.findAll());
+        modelAndView.addObject("personobj", new PersonModel());
+
+        return  modelAndView;
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "**/searchPerson")
     public ModelAndView searchName(@RequestParam("searchName") String searchName) {
@@ -63,6 +76,17 @@ public class PersonController {
         modelAndView.addObject("personobj", new PersonModel());
 
         return modelAndView;
+    }
+
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/telephone/{idPerson}")
+    public ModelAndView telephone(@PathVariable("idPerson") Long idPerson) {
+
+        Optional<PersonModel> person = personRepository.findById(idPerson);
+
+        ModelAndView modelAndView = new ModelAndView("register/telephone");
+        modelAndView.addObject("personobj", person.get());
+
+        return  modelAndView;
     }
 
 

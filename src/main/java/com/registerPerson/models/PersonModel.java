@@ -3,6 +3,7 @@ package com.registerPerson.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "Person")
@@ -17,6 +18,17 @@ public class PersonModel implements Serializable {
     private String lastName;
 
     private int years;
+
+    @OneToMany(mappedBy = "person")
+    private List<TelephoneModel> telephone;
+
+    public List<TelephoneModel> getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(List<TelephoneModel> telephone) {
+        this.telephone = telephone;
+    }
 
     public int getYears() {
         return years;

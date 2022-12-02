@@ -69,17 +69,23 @@
                                        <th scope="col">Nome</th>
                                        <th scope="col">Sobrenome</th>
                                        <th scope="col">Idade</th>
+                                       <th scope="col"></th>
+                                       <th scope="col"></th>
                                    </tr>
                                    </thead>
                                    <tbody>
                                    <tr th:each = "person: ${persons}">
                                        <th th:text = "${person.id}" scope="row"></th>
-                                       <td th:text = "${person.firstName}"></td>
+                                       <td><a th:href="@{/telephone/{idPerson}(idPerson=${person.id})}"><span th:text = "${person.firstName}"></span></a></td>
                                        <td th:text = "${person.lastName}"></td>
                                        <td th:text = "${person.years}"></td>
                                        <td>
                                            <a th:href="@{/editPerson/{idPerson}(idPerson=${person.id})}"
                                               class="btn btn-info">Editar</a>
+                                       </td>
+                                       <td>
+                                           <a th:href="@{/deletePerson/{idPerson}(idPerson=${person.id})}"
+                                              class="btn btn-danger">Excluir</a>
                                        </td>
                                    </tr>
                                    </tbody>
