@@ -2,7 +2,9 @@ package com.registerPerson.controllers;
 
 
 import com.registerPerson.models.PersonModel;
+import com.registerPerson.models.TelephoneModel;
 import com.registerPerson.repositories.PersonRepository;
+import com.registerPerson.repositories.TelephoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ public class PersonController {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private TelephoneRepository telephoneRepository;
 
     //@GetMapping(value = "registerPerson")
     @RequestMapping(value = "/registerPerson", method = RequestMethod.GET)
@@ -85,10 +90,35 @@ public class PersonController {
 
         ModelAndView modelAndView = new ModelAndView("register/telephone");
         modelAndView.addObject("personobj", person.get());
+        modelAndView.addObject("telephone", telephoneRepository.getTelephone(idPerson));
 
         return  modelAndView;
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "**/addTelephonePerson/{idPerson}")
+    public ModelAndView addTelephonePerson
+            (TelephoneModel telephone, @PathVariable("idPerson") Long idPerson){
 
+        PersonModel person = personRepository.findById(idPerson).get();
+        telephone.setPerson(person);
+        telephoneRepository.save(telephone);
+
+        ModelAndView modelAndView = new ModelAndView("register/telephone");
+        modelAndView.addObject("personobj", person);
+        modelAndView.addObject("telephone", telephoneRepository.getTelephone(idPerson));
+
+        return modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/deleteTelephone/{idTelephone}")
+    public ModelAndView deleteTelephone(@PathVariable("idTelephone") Long idTelephone) {
+        PersonModel person = telephoneRepository.findById(idTelephone).get().getPerson();
+        telephoneRepository.deleteById(idTelephone);
+        ModelAndView modelAndView = new ModelAndView("register/telephone");
+        modelAndView.addObject("personobj", new PersonModel());
+        modelAndView.addObject("telephone", telephoneRepository.getTelephone(person.getId()));
+
+        return  modelAndView;
+    }
 
 }

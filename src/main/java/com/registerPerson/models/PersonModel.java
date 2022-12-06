@@ -19,7 +19,7 @@ public class PersonModel implements Serializable {
 
     private int years;
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<TelephoneModel> telephone;
 
     public List<TelephoneModel> getTelephone() {

@@ -27,12 +27,12 @@ public class TelephoneModel {
         this.id = id;
     }
 
-    public String getTelephone() {
+    public String getNumberTelephone() {
         return numberTelephone;
     }
 
-    public void setTelephone(String telephone) {
-        this.numberTelephone = telephone;
+    public void setNumberTelephone(String numberTelephone) {
+        this.numberTelephone = numberTelephone;
     }
 
     public String getTypeTelephone() {
