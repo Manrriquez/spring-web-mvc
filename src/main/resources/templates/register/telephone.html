@@ -26,15 +26,22 @@
                         </div>
                         <div class="my-3">
                             <h4 class="text-center">Telefones:</h4>
-                            <form class="mt-3" th:action="@{/addTelephonePerson/{idPerson}(idPerson=${personobj.id})}">
+                            <div class="my-3" th:each = "m : ${msg}">
+                                <span class="text-danger" th:text = "${m}"></span>
+                            </div>
+                            <form class="mt-3"
+                                  th:action="@{/addTelephonePerson/{idPerson}(idPerson=${personobj.id})}"
+                                onsubmit="return validate() ? true : false">
                                 <div class="mb-3">
                                     <label for="numberTelephone" class="form-label">Numero:</label>
-                                    <input type="text" class="form-control" id="numberTelephone" name="numberTelephone">
+                                    <input type="text" class="form-control"
+                                           id="numberTelephone" name="numberTelephone">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="typeTelephone" class="form-label">Tipo de numero:</label>
-                                    <input type="text" class="form-control" id="typeTelephone" name="typeTelephone">
+                                    <input type="text" class="form-control"
+                                           id="typeTelephone" name="typeTelephone">
                                 </div>
 
                                 <button type="submit" value="Save"
@@ -72,6 +79,22 @@
     </section>
 </main>
 
+<script type="text/javascript">
+    function validate() {
+        number = document.getElementById("numberTelephone").value;
+        type = document.getElementById("typeTelephone").value;
+
+        if(number === "") {
+            alert("Numero deve ser informado!")
+            return false;
+        } else if (type === "") {
+            alert("Tipo deve ser informado")
+            return false
+        }
+
+        return true;
+    }
+</script>
 
 
 <script src="js/main.js"></script>

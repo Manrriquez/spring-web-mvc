@@ -52,7 +52,7 @@ public class PersonController {
             for(ObjectError objectError : bindingResult.getAllErrors()) {
                 msg.add(objectError.getDefaultMessage());
             }
-            modelAndView.addObject("msg: ", msg);
+            modelAndView.addObject("msg", msg);
             return modelAndView;
         }
 
@@ -119,6 +119,22 @@ public class PersonController {
             (TelephoneModel telephone, @PathVariable("idPerson") Long idPerson){
 
         PersonModel person = personRepository.findById(idPerson).get();
+
+        if(telephone != null && telephone.getNumberTelephone() != null
+                && telephone.getNumberTelephone().isEmpty() || telephone.getNumberTelephone() == null) {
+
+            ModelAndView modelAndView = new ModelAndView("register/telephone");
+            modelAndView.addObject("personobj", person);
+            modelAndView.addObject("telephone", telephoneRepository.getTelephone(idPerson));
+
+            List<String> msg = new ArrayList<>();
+            msg.add("Numero deve ser informado!");
+            modelAndView.addObject("msg", msg);
+
+            return modelAndView;
+
+        }
+
         telephone.setPerson(person);
         telephoneRepository.save(telephone);
 
