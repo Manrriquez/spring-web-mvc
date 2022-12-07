@@ -29,6 +29,7 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
                 .disable() //desativar as config padrão do spring
                 .authorizeRequests() //permitir restringir acessos
                 .antMatchers(HttpMethod.GET, "/").permitAll() // quauqluer usuario acessa a pagina inteira
+                .antMatchers(HttpMethod.GET, "/registerPerson").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin().permitAll() //permite qualquer usuario
                 .and().logout() // mapeia a url de logout e invalida o usuario autenticado
