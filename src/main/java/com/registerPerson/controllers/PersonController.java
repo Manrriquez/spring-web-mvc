@@ -7,9 +7,14 @@ import com.registerPerson.repositories.PersonRepository;
 import com.registerPerson.repositories.TelephoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -35,7 +40,21 @@ public class PersonController {
 
 //    @PostMapping(value = "/savePerson")
     @RequestMapping(value = "**/savePerson", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView savePerson(PersonModel person) {
+    public ModelAndView savePerson(@Valid PersonModel person, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+            ModelAndView modelAndView = new ModelAndView("register/registerPerson");
+            Iterable<PersonModel> personsIt = personRepository.findAll();
+            modelAndView.addObject("persons", personsIt);
+            modelAndView.addObject("personobj", person);
+
+            List<String> msg = new ArrayList<String>();
+            for(ObjectError objectError : bindingResult.getAllErrors()) {
+                msg.add(objectError.getDefaultMessage());
+            }
+            modelAndView.addObject("msg: ", msg);
+            return modelAndView;
+        }
 
         personRepository.save(person);
         ModelAndView andView = new ModelAndView("register/registerPerson");

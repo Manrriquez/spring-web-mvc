@@ -15,6 +15,9 @@
                 <div class="row">
                     <div class="col-12 d-flex justify-content-center align-items-center">
                        <div class="items-centered">
+                           <div class="my-3" th:each = "m : ${msg}">
+                               <span class="text-danger" th:text = "${m}"></span>
+                           </div>
                            <div class="my-5">
                                <form th:action="@{'/savePerson}" method="post" th:object="${personobj}">
                                    <div class="mb-3">
