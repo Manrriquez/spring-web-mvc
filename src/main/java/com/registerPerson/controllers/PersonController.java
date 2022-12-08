@@ -42,6 +42,8 @@ public class PersonController {
     @RequestMapping(value = "**/savePerson", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView savePerson(@Valid PersonModel person, BindingResult bindingResult) {
 
+        person.setTelephone(telephoneRepository.getTelephone(person.getId()));
+
         if(bindingResult.hasErrors()){
             ModelAndView modelAndView = new ModelAndView("register/registerPerson");
             Iterable<PersonModel> personsIt = personRepository.findAll();
