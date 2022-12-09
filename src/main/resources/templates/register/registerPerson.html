@@ -39,6 +39,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                    </div>
 
                                    <div class="mb-3">
+                                       <label  class="form-label">Sexo</label>
+                                       <select class="form-control" th:field="*{sexo}">
+                                           <option disabled>----[Selecione]----</option>
+                                           <option value="MASCULINO" th:text="Masculino" />
+                                           <option value="Feminino" th:text="Feminino" />
+                                       </select>
+                                   </div>
+
+                                   <div class="mb-3">
                                        <label for="cep"  class="form-label">CEP</label>
                                        <input type="text" class="form-control"
                                               id="cep" name="cep" th:field="*{cep}">
@@ -91,7 +100,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                                        <input type="text" class="form-control"
                                               id="searchName" name="searchName">
                                    </div>
-
+                                   <div class="mb-3">
+                                       <label class="form-label">Pesquisar Sexo</label>
+                                       <select class="form-control" name="searchSex" id="searchSex">
+                                           <option value=" ">----[TODOS]----</option>
+                                           <option value="MASCULINO" th:text="Masculino" />
+                                           <option value="Feminino" th:text="Feminino" />
+                                       </select>
+                                   </div>
 
                                    <button type="submit" value="Search"
                                            class="btn btn-info w-100">Buscar</button>

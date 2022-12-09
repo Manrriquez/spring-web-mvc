@@ -24,6 +24,8 @@ public class PersonModel implements Serializable {
     @NotEmpty(message = "Sobrenome não pode ser vazio")
     private String lastName;
 
+    private String sexo;
+
     @Min(value = 18, message = "idade invalida")
     private int years;
 
@@ -37,12 +39,21 @@ public class PersonModel implements Serializable {
     private String bairro;
 
     private String cidade;
+
     private String uf;
 
     private String ibge;
 
     public String getCep() {
         return cep;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
     public void setCep(String cep) {

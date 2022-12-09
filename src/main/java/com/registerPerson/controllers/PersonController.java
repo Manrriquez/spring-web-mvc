@@ -96,9 +96,18 @@ public class PersonController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "**/searchPerson")
-    public ModelAndView searchName(@RequestParam("searchName") String searchName) {
+    public ModelAndView searchName(@RequestParam("searchName") String searchName, @RequestParam("searchSex") String searchSex) {
+
+        List<PersonModel> persons = new ArrayList<PersonModel>();
+
+        if(searchSex != null && !searchSex.isEmpty()) {
+            persons = personRepository.PersonSexSearch(searchName, searchSex);
+        } else {
+            persons = personRepository.PersonNameSearch(searchName);
+        }
+
         ModelAndView modelAndView = new ModelAndView("register/registerPerson");
-        modelAndView.addObject("persons", personRepository.PersonNameSearch(searchName));
+        modelAndView.addObject("persons", persons);
         modelAndView.addObject("personobj", new PersonModel());
 
         return modelAndView;

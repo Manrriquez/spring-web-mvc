@@ -15,4 +15,7 @@ public interface PersonRepository extends CrudRepository<PersonModel, Long> {
 
     @Query("select p from PersonModel p where p.firstName like %?1%")
     List<PersonModel> PersonNameSearch(String firstName);
+
+    @Query("select p from PersonModel p where p.firstName like %?1% and p.sexo = ?2")
+    List<PersonModel> PersonSexSearch(String firstName, String sexo);
 }
